@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa&display=swap');
+* {
+    font-family: 'Comfortaa', sans-serif;
+}
+
+.background-tint {
+    background-color: rgba(0, 0, 0, 0.082); /* Tint color */
+    background-blend-mode: multiply;
+}
+
+label {
+    color: gray;
+
+}
