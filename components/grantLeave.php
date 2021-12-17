@@ -95,3 +95,6 @@ if (mysqli_num_rows($result) == 0) {
 </script>
 
 <script src="scripts/leave.js" type="text/javascript"></script>
+<script>
+  fillDropDown();
+</script>

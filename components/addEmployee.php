@@ -110,3 +110,6 @@ if (mysqli_num_rows($result) == 0) {
   var dropDownList = <?php echo json_encode($dropDownList); ?>;
 </script>
 <script src="scripts/employee.js" type="text/javascript"></script>
+<script>
+  fillDropDown();
+</script>

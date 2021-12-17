@@ -31,7 +31,7 @@ require('inc/config.php');
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <li><a class="dropdown-item" href="/components/grantLeave.php">Grant</a></li>
-              <li><a class="dropdown-item" href="#">View</a></li>
+              <li><a class="dropdown-item" href="/components/viewLeaves.php">View</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -40,7 +40,7 @@ require('inc/config.php');
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <li><a class="dropdown-item" href="/components/addEmployee.php">Add</a></li>
-              <li><a class="dropdown-item" href="#">View/Edit</a></li>
+              <li><a class="dropdown-item" href="/components/viewEmployee.php">View/Edit</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -59,7 +59,7 @@ require('inc/config.php');
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <li><a class="dropdown-item" href="/components/addDepartment.php">Add</a></li>
-              <li><a class="dropdown-item" href="#">View</a></li>
+              <li><a class="dropdown-item" href="/components/viewDepartments.php">View</a></li>
             </ul>
           </li>
         </ul>

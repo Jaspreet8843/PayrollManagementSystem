@@ -87,7 +87,34 @@ if(isset($_POST['generate']))
 }
 
 if(isset($_POST['submit'])){
-    print_r($_POST);
+    $eId = $_POST['eId'];
+    $dfrom = $_POST['dfrom'];
+    $dtill = $_POST['dtill'];
+    $basic = $_POST['basic'];
+    $DA = $_POST['DA'];
+    $HRA = $_POST['HRA'];
+    $PF = $_POST['EPF'];
+    $deductions = $_POST['deductions'];
+    $remarks = $_POST['remarks'];
+    $sDate = date("Y-m-d");
+    $query = "SELECT dateFrom,dateTill from salary WHERE (dateFrom BETWEEN '$dfrom' AND '$dtill') OR (dateTill BETWEEN '$dfrom' AND '$dtill')";
+    $result = mysqli_query($db,$query);
+    if(mysqli_num_rows($result)==0)
+    {
+        $query = "INSERT INTO salary(eId,dateFrom,dateTill,basic,DA,HRA,PF,deductions,remarks,sDate) VALUES($eId,'$dfrom','$dtill',$basic,$DA,$HRA,$PF,$deductions,'$remarks','$sDate')";
+        if (!$db->query($query)) {
+            print("ERROR WHILE INSERTING EMPLOYEE!");
+            print(mysqli_error($db));
+        }
+        else
+        {
+            echo '<script>alert("Success!")</script>';
+        }
+    }
+    else
+    {
+        echo '<script>alert("Salary already paid!")</script>';
+    }
 }
 
 ?>
@@ -207,8 +234,17 @@ if(isset($_POST['submit'])){
                 <label for="remarks">Remarks:</label>
             </div>
             <div class="col">
-                <input type="text" value="<?php print(round($netSalary));?>" name="netSalary" hidden/>
                 <textarea class="form-control mt-3 mb-3" placeholder="(optional)" id="remarks" name="remarks"></textarea>
+            </div>
+            <div hidden>
+                <input type="text" value="<?php print(round($basicSalary));?>" name="basic" hidden/>
+                <input type="text" value="<?php print(round($DA));?>" name="DA" hidden/>
+                <input type="text" value="<?php print(round($HRA));?>" name="HRA" hidden/>
+                <input type="text" value="<?php print(round($deductions));?>" name="deductions" hidden/>
+                <input type="text" value="<?php print(round($EPF));?>" name="EPF" hidden/>
+                <input type="date" value="<?php print($sDate);?>" name="dfrom" hidden/>
+                <input type="date" value="<?php print($eDate);?>" name="dtill" hidden/>
+                <input type="text" value="<?php print($eId);?>" name="eId" hidden/>
             </div>
             </div>
             <div class="mt-2 d-grid gap-2">
