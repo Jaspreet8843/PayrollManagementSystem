@@ -36,7 +36,7 @@ if (mysqli_num_rows($result) == 0) {
 }
 ?>
 
-<div class="p-sm-5 background-tint">
+<div class="p-sm-5">
   <form class="container shadow rounded col-lg-8 p-5 bg-white" action="addEmployee.php" method="post">
     <h2 class="mb-4">Add Employee</h2>
 

@@ -1,3 +1,6 @@
+document.getElementById("homelink").classList.remove("active");
+document.getElementById("employeeslink").classList.add("active");
+
 function fillDropDown()
 {
     var department = document.getElementById("department");

@@ -60,7 +60,7 @@ if(isset($_POST['submit']))
 
 <script src="scripts/department.js" type="text/javascript"></script>
 
-<div class="p-sm-5 background-tint">
+<div class="p-sm-5">
   <form class="container p-5 col col-md-7 mx-auto bg-white rounded shadow" action="addDepartment.php" method="post"> 
     <div id="page1">
       <h2 class="mb-4">Add Department</h2>
@@ -75,7 +75,7 @@ if(isset($_POST['submit']))
         <input type="text" class="form-control" id="dLocation" name="dLocation" required>
       </div>
       <div class="d-grid gap-2">
-        <button onclick="showNextPage();" class="btn btn-dark rounded-pill shadow bg-gradient">Next</button>
+        <button onclick="showNextPage();" class="btn btn-dark rounded shadow bg-gradient">Next</button>
       </div>
     </div>
     <div id="page2" style="display:none"> 
@@ -88,7 +88,7 @@ if(isset($_POST['submit']))
         </div>
       </div>
       <div class="d-grid gap-2">
-        <button name="submit" type="submit" class="btn btn-dark btn-lg rounded-pill shadow bg-gradient">Submit</button>
+        <button name="submit" type="submit" class="btn btn-dark btn-lg rounded shadow bg-gradient">Submit</button>
       </div>
     </div>
   </form>

@@ -119,7 +119,7 @@ if(isset($_POST['submit'])){
 
 ?>
 
-<div class="p-sm-5 background-tint bg-gradient">
+<div class="p-sm-5 bg-gradient">
 
     <div class = "container shadow rounded p-5 bg-white col-lg-7 mx-auto">
         <form action="paySalary.php" method="post">

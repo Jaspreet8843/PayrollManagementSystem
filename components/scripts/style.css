@@ -1,11 +1,26 @@
 @import url('https://fonts.googleapis.com/css?family=Comfortaa&display=swap');
+
 * {
     font-family: 'Comfortaa', sans-serif;
 }
 
+html, body {
+    margin:0;
+    height:100%;
+}
+
+
 .background-tint {
-    background-color: rgba(0, 0, 0, 0.082); /* Tint color */
+    position: fixed;
+    top:0;
+    background-color: rgba(0, 0, 0, 0.082);
+    /* Tint color */
     background-blend-mode: multiply;
+    /* background-size: auto 100%; */
+    height: 100vh;
+    width: 100vw;
+    z-index: -2;
+
 }
 
 label {

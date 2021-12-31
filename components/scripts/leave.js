@@ -1,3 +1,6 @@
+document.getElementById("homelink").classList.remove("active");
+document.getElementById("leaveslink").classList.add("active");
+
 function fillDropDown()
 {
     var emp = document.getElementById('employees');   
@@ -60,7 +63,7 @@ function search()
 }
 
 
-function filterCols()
+function hideCols()
 {
     var rows = document.getElementById("leavesTable").rows;
     var selectedCols = document.getElementById("filter");
@@ -85,7 +88,7 @@ function filterCols()
 
 }
 
-function filterByTime()
+function filterRows()
 {
     var category = document.getElementById("catByTime").value;
     var rows = document.getElementById("leavesTable").getElementsByTagName("tr");
@@ -93,6 +96,7 @@ function filterByTime()
     for(var i=1;i<rows.length;i++)
     {
         var cells = rows[i].getElementsByTagName("td");
+        var permission = cells[7].innerHTML.toUpperCase();
         var dateFrom = Date.parse(cells[4].innerHTML);
         var dateTill = Date.parse(cells[5].innerHTML);
         
@@ -125,6 +129,28 @@ function filterByTime()
         else if(category == 2)
         {
             if(dateFrom>Date.parse(Date()))
+            {
+                rows[i].style.display="";
+            }
+            else
+            {
+                rows[i].style.display="none";
+            }
+        }
+        else if(category == 3)
+        {
+            if(permission.includes("GRANTED"))
+            {
+                rows[i].style.display="";
+            }
+            else
+            {
+                rows[i].style.display="none";
+            }
+        }
+        else if(category == 4)
+        {
+            if(permission.includes("DENIED"))
             {
                 rows[i].style.display="";
             }
