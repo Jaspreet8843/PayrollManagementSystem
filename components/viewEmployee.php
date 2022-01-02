@@ -26,6 +26,7 @@ $employees = mysqli_query($db, $query);
                     <option value=8>Department</option>
                     <option value=9>Basic Salary</option>
                     <option value=10>Joining Date</option>
+                    <option value=11>Inserted By</option>
                 </select>
             </div>
             <div class="col-md-2 p-2 p-md-1"> 
@@ -41,6 +42,7 @@ $employees = mysqli_query($db, $query);
                     <option value=8>Department</option>
                     <option value=9>Basic Salary</option>
                     <option value=10>Joining Date</option>
+                    <option value=11>Inserted By</option>
                 </select>
             </div>
             <div class="col-md-4 p-2 p-md-1">
@@ -69,6 +71,7 @@ $employees = mysqli_query($db, $query);
                         <th>Department</th>
                         <th>Basic Salary</th>
                         <th>Joining Date</th>
+                        <th>Inserted By</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -109,6 +112,9 @@ $employees = mysqli_query($db, $query);
                         <td>
                             <?php echo $row['joiningDate']?>
                         </td>
+                        <td>
+                            <?php echo $row['insertedBy']?>
+                        </td>
                     </tr>
                     <?php
                     } 
@@ -124,3 +130,5 @@ $employees = mysqli_query($db, $query);
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js" integrity="sha512-FHZVRMUW9FsXobt+ONiix6Z0tIkxvQfxtCSirkKc5Sb4TKHmqq1dZa8DphF0XqKb3ldLu/wgMa8mT6uXiLlRlw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<?php require('footer.php');?>

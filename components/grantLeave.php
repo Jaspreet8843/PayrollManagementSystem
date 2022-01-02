@@ -2,19 +2,26 @@
 
 <?php
 require('header.php');
-
 if (isset($_POST['submit'])) {
     $eid = $_POST['eId'];
     $sdate = $_POST['startDate'];
     $edate = $_POST['endDate'];
     $reason = $_POST['reason'];
     $permission = $_POST['permission'];
+    $user_id = $_SESSION['user_id'];
 
-    $query = "INSERT INTO leaves(eId,startDate,endDate,reason,permission) VALUES($eid,'$sdate','$edate','$reason','$permission')";
+    $row_id = mysqli_fetch_assoc(mysqli_query($db, "SELECT `AUTO_INCREMENT`
+    FROM  INFORMATION_SCHEMA.TABLES
+    WHERE TABLE_SCHEMA = 'payrollmanagement'
+    AND   TABLE_NAME   = 'leaves'"))['AUTO_INCREMENT'];
+
+    $query = "INSERT INTO leaves(eId,startDate,endDate,reason,permission,insertedBy) VALUES($eid,'$sdate','$edate','$reason','$permission','$user_id')";
     if (!$db->query($query)) {
         print("ERROR WHILE INSERTING EMPLOYEE!");
         print(mysqli_error($db));
     } else {
+        mysqli_query($db,"INSERT INTO logs(table_name,row_id,action,user_id) VALUES('leaves',$row_id,'insert','$user_id')");
+        print(mysqli_error($db));
         echo '<script>alert("Success!")</script>';
     }
 }
@@ -95,3 +102,5 @@ if (mysqli_num_rows($result) == 0) {
 <script>
     fillDropDown();
 </script>
+
+<?php require('footer.php');?>

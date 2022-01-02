@@ -95,24 +95,32 @@ if(isset($_POST['submit'])){
     $HRA = $_POST['HRA'];
     $PF = $_POST['EPF'];
     $deductions = $_POST['deductions'];
-    $remarks = $_POST['remarks'];
+    $remarks = $_POST['remarks'];   
     $sDate = date("Y-m-d");
-    $query = "SELECT dateFrom,dateTill from salary WHERE (dateFrom BETWEEN '$dfrom' AND '$dtill') OR (dateTill BETWEEN '$dfrom' AND '$dtill')";
+    $user_id = $_SESSION['user_id'];
+    $row_id = mysqli_fetch_assoc(mysqli_query($db, "SELECT `AUTO_INCREMENT`
+                                            FROM  INFORMATION_SCHEMA.TABLES
+                                            WHERE TABLE_SCHEMA = 'payrollmanagement'
+                                            AND   TABLE_NAME   = 'salary'"))['AUTO_INCREMENT'];
+    $query = "SELECT dateFrom,dateTill from salary WHERE ((dateFrom BETWEEN '$dfrom' AND '$dtill') OR (dateTill BETWEEN '$dfrom' AND '$dtill')) AND eId=$eId";
     $result = mysqli_query($db,$query);
     if(mysqli_num_rows($result)==0)
     {
-        $query = "INSERT INTO salary(eId,dateFrom,dateTill,basic,DA,HRA,PF,deductions,remarks,sDate) VALUES($eId,'$dfrom','$dtill',$basic,$DA,$HRA,$PF,$deductions,'$remarks','$sDate')";
+        $query = "INSERT INTO salary(eId,dateFrom,dateTill,basic,DA,HRA,PF,deductions,remarks,sDate,insertedBy) VALUES($eId,'$dfrom','$dtill',$basic,$DA,$HRA,$PF,$deductions,'$remarks','$sDate','$user_id')";
         if (!$db->query($query)) {
-            print("ERROR WHILE INSERTING EMPLOYEE!");
+            mysqli_query($db,"INSERT INTO logs(table_name,row_id,action,user_id) VALUES('Salary',$row_id,'Insertion Error','$user_id')");
+            print("ERROR WHILE PAYING SALARY!");
             print(mysqli_error($db));
         }
         else
         {
+            mysqli_query($db,"INSERT INTO logs(table_name,row_id,action,user_id) VALUES('Salary',$row_id,'Insert','$user_id')");
             echo '<script>alert("Success!")</script>';
         }
     }
     else
     {
+        mysqli_query($db,"INSERT INTO logs(table_name,row_id,action,user_id) VALUES('Salary',$row_id,'Error! Already Paid','$user_id')");
         echo '<script>alert("Salary already paid!")</script>';
     }
 }
@@ -263,3 +271,5 @@ if(isset($_POST['submit'])){
 </script>
 
 <script src="scripts/salary.js" type="text/javascript"></script>
+
+<?php require('footer.php');?>

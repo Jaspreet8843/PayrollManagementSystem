@@ -96,3 +96,5 @@ $leaves = mysqli_query($db, $query);
     setTable();
   mergeCells();
 </script>
+
+<?php require('footer.php');?>

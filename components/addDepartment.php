@@ -7,26 +7,37 @@ if(isset($_POST['submit']))
 {
   $deptName = mysqli_escape_string($db,$_POST['dName']);
   $deptLocation = mysqli_escape_string($db,$_POST['dLocation']);
+  $user_id = $_SESSION['user_id'];
+  $row_id = mysqli_fetch_assoc(mysqli_query($db, "SELECT `AUTO_INCREMENT`
+                                            FROM  INFORMATION_SCHEMA.TABLES
+                                            WHERE TABLE_SCHEMA = 'payrollmanagement'
+                                            AND   TABLE_NAME   = 'department'"))['AUTO_INCREMENT'];
 
   $query = "INSERT INTO department(dName,dLocation) VALUES ('$deptName','$deptLocation')";
-
+  mysqli_query($db,"INSERT INTO logs(table_name,row_id,action,user_id) VALUES('Department',$row_id,'Insert','$user_id')");
   if(!$db -> query($query))
   {
+    mysqli_query($db,"INSERT INTO logs(table_name,row_id,action,user_id) VALUES('Department',$row_id,'Insertion Error','$user_id')");
     print("TRANSACTION FAILED!");
     print(mysqli_error($db));
   }
   else
   {
+    $row_id = mysqli_fetch_assoc(mysqli_query($db, "SELECT `AUTO_INCREMENT`
+                                            FROM  INFORMATION_SCHEMA.TABLES
+                                            WHERE TABLE_SCHEMA = 'payrollmanagement'
+                                            AND   TABLE_NAME   = 'department'"))['AUTO_INCREMENT'];
 
     $query = "SELECT dno from department WHERE dname='$deptName'";
     $result = mysqli_query($db,$query);
     if(mysqli_num_rows($result)==0){
-      print($query);
+      mysqli_query($db,"INSERT INTO logs(table_name,row_id,action,user_id) VALUES('Department',$row_id,'Fetch Error','$user_id')");
       print("FAILED TO RETRIEVE DEPARTMENT!");
       print(mysqli_error($db));
     }
     else
     {
+      
       $deptNo = mysqli_fetch_row($result)[0];
 
       $desigArray = array();
@@ -46,9 +57,15 @@ if(isset($_POST['submit']))
       for($i=0; $i<count($desigArray);$i++) {
         $x = $desigArray[$i];
         $y = $salArray[$i];
+        $row_id = mysqli_fetch_assoc(mysqli_query($db, "SELECT `AUTO_INCREMENT`
+                                            FROM  INFORMATION_SCHEMA.TABLES
+                                            WHERE TABLE_SCHEMA = 'payrollmanagement'
+                                            AND   TABLE_NAME   = 'designation'"))['AUTO_INCREMENT'];
+        mysqli_query($db,"INSERT INTO logs(table_name,row_id,action,user_id) VALUES('Designation',$row_id,'Insert','$user_id')");
         $query = "INSERT INTO designation(deptNo,desigName,basicSalary) VALUES($deptNo,'$x',$y)";
         if(!$db -> query($query))
         {
+          mysqli_query($db,"INSERT INTO logs(table_name,row_id,action,user_id) VALUES('Designation',$row_id,'Insertion Error','$user_id')");
           print("ERROR WHILE INSERTING DESIGNATION!");
           print(mysqli_error($db));
         }
@@ -93,3 +110,4 @@ if(isset($_POST['submit']))
     </div>
   </form>
 </div>
+<?php require('footer.php');?>

@@ -11,14 +11,25 @@ if (isset($_POST['submit'])) {
   $desig = $_POST['designation'];
   $date = $_POST['joinDate'];
   $basic = $_POST['basicSalary'];
-  $query = "INSERT INTO employee(eName,eAddress,eDOB,eEmail,eSex,eDesig,joiningDate,currentBasic) VALUES('$name','$add','$dob','$email','$sex',$desig,'$date',$basic)";
+  $user_id = $_SESSION['user_id'];
+
+  $row_id = mysqli_fetch_assoc(mysqli_query($db, "SELECT `AUTO_INCREMENT`
+    FROM  INFORMATION_SCHEMA.TABLES
+    WHERE TABLE_SCHEMA = 'payrollmanagement'
+    AND   TABLE_NAME   = 'employee'"))['AUTO_INCREMENT'];
+
+
+  $query = "INSERT INTO employee(eName,eAddress,eDOB,eEmail,eSex,eDesig,joiningDate,currentBasic,insertedBy) VALUES('$name','$add','$dob','$email','$sex',$desig,'$date',$basic,'$user_id')";
 
   if (!$db->query($query)) {
+    mysqli_query($db,"INSERT INTO logs(table_name,row_id,action,user_id) VALUES('employee',$row_id,'insertion error','$user_id')");
     print("ERROR WHILE INSERTING EMPLOYEE!");
     print(mysqli_error($db));
   }
   else
   {
+      mysqli_query($db,"INSERT INTO logs(table_name,row_id,action,user_id) VALUES('employee',$row_id,'insert','$user_id')");
+          print(mysqli_error($db));
       echo '<script>alert("Success!")</script>';
   }
 }
@@ -113,3 +124,5 @@ if (mysqli_num_rows($result) == 0) {
 <script>
   fillDropDown();
 </script>
+
+<?php require('footer.php');?>
