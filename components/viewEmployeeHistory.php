@@ -3,7 +3,7 @@
 <?php
 require('header.php');
 
-$query = "SELECT * FROM employee,designation,department WHERE employee.eDesig = designation.desigNo AND designation.deptNo = department.dNo";
+$query = "SELECT * FROM employeehistory,designation,department WHERE employeehistory.eDesig = designation.desigNo AND designation.deptNo = department.dNo ORDER BY serialNo DESC";
 $employees = mysqli_query($db, $query);
 ?>
 
@@ -11,37 +11,32 @@ $employees = mysqli_query($db, $query);
     <div class="m-md-3 mt-5 p-5 bg-white shadow rounded">
         <div class="row">
             <div class="col-md-4">
-                <h2>Employees</h2>
+                <h2>Employee History</h2>
             </div>
             <div class="col-md-2 p-2 p-md-1">
-                <select class="selectpicker w-100" id="filter" onchange="filterCols()" multiple placeholder="Nothing Hidden">
-                    <option value=1>ID</option>
-                    <option value=2>Name</option>
-                    <option value=3>Address</option>
-                    <option value=4>DOB</option>
-                    <option value=5>Email</option>
-                    <option value=6>Sex</option>
-                    <option value=7>Designation</option>
-                    <option value=8>Department</option>
-                    <option value=9>Basic Salary</option>
-                    <option value=10>Joining Date</option>
-                    <option value=11>Inserted By</option>
+                <select class="selectpicker w-100" id="filter" onchange="hideCols()" multiple placeholder="Nothing Hidden">
+                <option value=0>Sl No.</option>
+                    <option value=1>eID</option>
+                    <option value=2>eName</option>
+                    <option value=3>Designation</option>
+                    <option value=4>Department</option>
+                    <option value=5>Basic Salary</option>
+                    <option value=6>Update Date</option>
+                    <option value=7>Action</option>
+                    <option value=8>Action By</option>
                 </select>
             </div>
             <div class="col-md-2 p-2 p-md-1">
                 <select class="form-select" id="category" onchange="search()">
-                    <option value=-1 selected>Search All</option>
-                    <option value=1>ID</option>
-                    <option value=2>Name</option>
-                    <option value=3>Address</option>
-                    <option value=4>DOB</option>
-                    <option value=5>Email</option>
-                    <option value=6>Sex</option>
-                    <option value=7>Designation</option>
-                    <option value=8>Department</option>
-                    <option value=9>Basic Salary</option>
-                    <option value=10>Joining Date</option>
-                    <option value=11>Inserted By</option>
+                    <option value=0>Sl No.</option>
+                    <option value=1>eID</option>
+                    <option value=2>eName</option>
+                    <option value=3>Designation</option>
+                    <option value=4>Department</option>
+                    <option value=5>Basic Salary</option>
+                    <option value=6>Update Date</option>
+                    <option value=7>Action</option>
+                    <option value=8>Action By</option>
                 </select>
             </div>
             <div class="col-md-4 p-2 p-md-1">
@@ -59,18 +54,15 @@ $employees = mysqli_query($db, $query);
 
                 <thead class="thead-dark align-middle">
                     <tr>
-                        <th></th>
-                        <th>ID</th>
+                        <th>Sl No.</th>
+                        <th>eID</th>
                         <th>Name</th>
-                        <th>Address</th>
-                        <th>DOB</th>
-                        <th>Email</th>
-                        <th>Sex</th>
                         <th>Designation</th>
                         <th>Department</th>
                         <th>Basic Salary</th>
-                        <th>Joining Date</th>
-                        <th>Inserted By</th>
+                        <th>Update Date</th>
+                        <th>Action</th>
+                        <th>Action By</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -78,28 +70,14 @@ $employees = mysqli_query($db, $query);
                     while ($row = mysqli_fetch_assoc($employees)) {
                     ?>
                         <tr class="align-middle">
-                            <form action="editEmployee.php" method="POST">        
-                                <td class="text-center">
-                                    <button class="btn btn-warning" value="<?php echo $row['eId'] ?>" name="employeeId">📝</button>
-                                </td>
-                            </form>
+                            <td>
+                                <?php echo $row['serialNo'] ?>
+                            </td>
                             <td>
                                 <?php echo $row['eId'] ?>
                             </td>
                             <td>
                                 <?php echo $row['eName'] ?>
-                            </td>
-                            <td>
-                                <?php echo $row['eAddress'] ?>
-                            </td>
-                            <td>
-                                <?php echo $row['eDOB'] ?>
-                            </td>
-                            <td>
-                                <?php echo $row['eEmail'] ?>
-                            </td>
-                            <td>
-                                <?php echo $row['eSex'] ?>
                             </td>
                             <td>
                                 <?php echo $row['desigName'] ?>
@@ -108,13 +86,16 @@ $employees = mysqli_query($db, $query);
                                 <?php echo $row['dName'] ?>
                             </td>
                             <td>
-                                <?php echo $row['currentBasic'] ?>
+                                <?php echo $row['basicSalary'] ?>
                             </td>
                             <td>
-                                <?php echo $row['joiningDate'] ?>
+                                <?php echo $row['updateDate'] ?>
                             </td>
                             <td>
-                                <?php echo $row['insertedBy'] ?>
+                                <?php echo $row['action'] ?>
+                            </td>
+                            <td>
+                                <?php echo $row['actionby'] ?>
                             </td>
                         </tr>
                     <?php

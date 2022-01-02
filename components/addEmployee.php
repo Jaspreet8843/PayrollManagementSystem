@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
   $query = "INSERT INTO employee(eName,eAddress,eDOB,eEmail,eSex,eDesig,joiningDate,currentBasic,insertedBy) VALUES('$name','$add','$dob','$email','$sex',$desig,'$date',$basic,'$user_id')";
 
   if (!$db->query($query)) {
-    mysqli_query($db,"INSERT INTO logs(table_name,row_id,action,user_id) VALUES('employee',$row_id,'insertion error','$user_id')");
+    mysqli_query($db,"INSERT INTO logs(table_name,row_id,action,user_id) VALUES('Employee',$row_id,'Insertion Error','$user_id')");
     print("ERROR WHILE INSERTING EMPLOYEE!");
     print(mysqli_error($db));
   }

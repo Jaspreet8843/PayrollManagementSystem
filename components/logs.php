@@ -5,7 +5,7 @@
 <?php
 require('header.php');
 
-$query = "SELECT * FROM logs ORDER BY timestamp DESC";
+$query = "SELECT * FROM logs ORDER BY id DESC";
 $logs = mysqli_query($db, $query);
 ?>
 

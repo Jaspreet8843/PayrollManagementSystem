@@ -117,14 +117,28 @@ function filterCols()
         for(var j=0;j<selectedCols.length;j++)
         {
             if(selectedCols[j].selected){
-                cols[j].style.display="none";
+                cols[j+1].style.display="none";
             }
             else
             {
-                cols[j].style.display="";
+                cols[j+1].style.display="";
             }
         }
     
     }
 
+}
+
+
+function printDiv(divName) {
+
+    document.getElementById('darken').style.display="inline";
+    var printContents = document.getElementById(divName).innerHTML;
+    var originalContents = document.body.innerHTML;
+
+    document.body.innerHTML = printContents;
+
+    window.print();
+    document.body.innerHTML = originalContents;
+    document.getElementById('darken').style.display="none";
 }

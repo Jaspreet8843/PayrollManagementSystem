@@ -3,29 +3,52 @@
 <?php
 require('header.php');
 
-$query = "SELECT * FROM employee,designation,department WHERE employee.eDesig = designation.desigNo AND designation.deptNo = department.dNo";
+if(isset($_POST['del']))
+{
+    $id = $_POST['del'];
+    $query = "DELETE FROM myusers WHERE id = '$id'";
+    mysqli_query($db, $query);
+}
+if(isset($_POST['act']))
+{
+    $id = $_POST['act'];
+    $query = "UPDATE myusers SET status='active', type='employee' WHERE id = '$id'";
+    mysqli_query($db, $query);
+}
+
+if(isset($_POST['deact']))
+{
+    $id = $_POST['deact'];
+    $query = "UPDATE myusers SET status='inactive' WHERE id = '$id'";
+    mysqli_query($db, $query);
+}
+
+$query = "SELECT * FROM myusers WHERE type <> 'admin'";
 $employees = mysqli_query($db, $query);
 ?>
 
 <div class="p-sm-5">
     <div class="m-md-3 mt-5 p-5 bg-white shadow rounded">
         <div class="row">
-            <div class="col-md-4">
-                <h2>Employees</h2>
+            <div class="col-md-2">
+                <h2>Users</h2>
+            </div>
+            <div class="col-md-2 p-2 p-md-1">
+                <select class="form-select" id="catByTime" onchange="filterRows()">
+                    <option value=-1 selected>All</option>
+                    <option value=0>New</option>
+                </select>
             </div>
             <div class="col-md-2 p-2 p-md-1">
                 <select class="selectpicker w-100" id="filter" onchange="filterCols()" multiple placeholder="Nothing Hidden">
                     <option value=1>ID</option>
                     <option value=2>Name</option>
-                    <option value=3>Address</option>
-                    <option value=4>DOB</option>
-                    <option value=5>Email</option>
-                    <option value=6>Sex</option>
-                    <option value=7>Designation</option>
-                    <option value=8>Department</option>
-                    <option value=9>Basic Salary</option>
-                    <option value=10>Joining Date</option>
-                    <option value=11>Inserted By</option>
+                    <option value=3>User ID</option>>
+                    <option value=4>Phone</option>
+                    <option value=5>Password</option>
+                    <option value=6>Timestamp</option>
+                    <option value=7>Status</option>
+                    <option value=8>Type</option>
                 </select>
             </div>
             <div class="col-md-2 p-2 p-md-1">
@@ -33,15 +56,12 @@ $employees = mysqli_query($db, $query);
                     <option value=-1 selected>Search All</option>
                     <option value=1>ID</option>
                     <option value=2>Name</option>
-                    <option value=3>Address</option>
-                    <option value=4>DOB</option>
-                    <option value=5>Email</option>
-                    <option value=6>Sex</option>
-                    <option value=7>Designation</option>
-                    <option value=8>Department</option>
-                    <option value=9>Basic Salary</option>
-                    <option value=10>Joining Date</option>
-                    <option value=11>Inserted By</option>
+                    <option value=3>User ID</option>
+                    <option value=4>Phone</option>
+                    <option value=5>Password</option>
+                    <option value=6>Timestamp</option>
+                    <option value=7>Status</option>
+                    <option value=8>Type</option>
                 </select>
             </div>
             <div class="col-md-4 p-2 p-md-1">
@@ -55,22 +75,19 @@ $employees = mysqli_query($db, $query);
         </div>
         <hr>
         <div class="overflow-auto">
-            <table class="mt-2 table table-bordered table-hover" id="employeeTable">
+            <table class="mt-2 table table-bordered table-hover" id="usersTable">
 
                 <thead class="thead-dark align-middle">
                     <tr>
                         <th></th>
                         <th>ID</th>
                         <th>Name</th>
-                        <th>Address</th>
-                        <th>DOB</th>
-                        <th>Email</th>
-                        <th>Sex</th>
-                        <th>Designation</th>
-                        <th>Department</th>
-                        <th>Basic Salary</th>
-                        <th>Joining Date</th>
-                        <th>Inserted By</th>
+                        <th>User ID</th>
+                        <th>Phone</th>
+                        <th>Password</th>
+                        <th>Timestamp</th>
+                        <th>Status</th>
+                        <th>Type</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -78,43 +95,40 @@ $employees = mysqli_query($db, $query);
                     while ($row = mysqli_fetch_assoc($employees)) {
                     ?>
                         <tr class="align-middle">
-                            <form action="editEmployee.php" method="POST">        
+                            <form method="POST">    
                                 <td class="text-center">
-                                    <button class="btn btn-warning" value="<?php echo $row['eId'] ?>" name="employeeId">📝</button>
-                                </td>
+                                    <?php if($row['status']=='active'){ ?>
+                                        <button name="deact" value="<?php echo $row['id'] ?>" class="btn btn-warning w-100">deactivate</button> 
+                                        <?php } else{ ?>
+                                            <button name="act" value="<?php echo $row['id'] ?>" class="btn btn-success w-100">activate</button> 
+                                            <?php } ?>
+                                            <br>
+                                            <button name="del" value="<?php echo $row['id'] ?>"  class="btn btn-danger w-100 mt-1" onclick="return confirm('Are you sure?');">delete</button> 
+                                        </td>
                             </form>
                             <td>
-                                <?php echo $row['eId'] ?>
+                                <?php echo $row['id'] ?>
                             </td>
                             <td>
-                                <?php echo $row['eName'] ?>
+                                <?php echo $row['name'] ?>
                             </td>
                             <td>
-                                <?php echo $row['eAddress'] ?>
+                                <?php echo $row['user_id'] ?>
                             </td>
                             <td>
-                                <?php echo $row['eDOB'] ?>
+                                <?php echo $row['phone'] ?>
                             </td>
                             <td>
-                                <?php echo $row['eEmail'] ?>
+                                <?php echo $row['password'] ?>
                             </td>
                             <td>
-                                <?php echo $row['eSex'] ?>
+                                <?php echo $row['timestamp'] ?>
                             </td>
                             <td>
-                                <?php echo $row['desigName'] ?>
+                                <?php echo $row['status'] ?>
                             </td>
                             <td>
-                                <?php echo $row['dName'] ?>
-                            </td>
-                            <td>
-                                <?php echo $row['currentBasic'] ?>
-                            </td>
-                            <td>
-                                <?php echo $row['joiningDate'] ?>
-                            </td>
-                            <td>
-                                <?php echo $row['insertedBy'] ?>
+                                <?php echo $row['type'] ?>
                             </td>
                         </tr>
                     <?php
@@ -127,7 +141,7 @@ $employees = mysqli_query($db, $query);
 
 </div>
 
-<script src="scripts/employee.js" type="text/javascript"></script>
+<script src="scripts/users.js" type="text/javascript"></script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js" integrity="sha512-FHZVRMUW9FsXobt+ONiix6Z0tIkxvQfxtCSirkKc5Sb4TKHmqq1dZa8DphF0XqKb3ldLu/wgMa8mT6uXiLlRlw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

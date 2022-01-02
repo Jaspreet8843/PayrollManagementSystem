@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-if(!isset($_SESSION['user_id']) && basename($_SERVER['PHP_SELF'])!= 'login.php')
+if(!isset($_SESSION['user_id']) && basename($_SERVER['PHP_SELF'])!= 'login.php' && basename($_SERVER['PHP_SELF'])!= 'register.php')
 {
   header('location:../components/login.php');
 }
@@ -51,6 +51,7 @@ require('inc/config.php');
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <li><a class="dropdown-item" href="/components/addEmployee.php"><i class="fas fa-plus-square"></i> Add</a></li>
               <li><a class="dropdown-item" href="/components/viewEmployee.php"><i class="fas fa-exclamation-triangle"></i> View/Edit</a></li>
+              <li><a class="dropdown-item" href="/components/viewEmployeeHistory.php"><i class="fas fa-history"></i> History</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -77,18 +78,28 @@ require('inc/config.php');
               Activity
             </a>
           </li>
+
+          <?php if( isset($_SESSION['type']) &&  $_SESSION['type']== 'admin')
+          { ?>
+          <li class="nav-item dropdown">
+            <a class="nav-link" href="/components/users.php" role="button" >
+              Users
+            </a>
+          </li>
+            <?php } ?>
+
           <li class="nav-item dropdown">
             <?php
             if(isset($_SESSION['user_id']))
             {
               ?>
-            <a href="/components/logout.php" class="btn btn-outline-light mx-md-2" ><i class="fas fa-sign-out-alt"></i> Log Out</a>
+            <a href="/components/logout.php" class="btn btn-outline-warning mx-md-2" ><i class="fas fa-sign-out-alt"></i> Log Out</a>
             <?php
             }
             else
             {
             ?>
-            <a href="/components/login.php" class="btn btn-outline-light mx-md-2" ><i class="fas fa-sign-in-alt"></i> Log In</a>
+            <a href="/components/login.php" class="btn btn-outline-warning mx-md-2" ><i class="fas fa-sign-in-alt"></i> Log In</a>
             <?php } ?>
           </li>
         </ul>

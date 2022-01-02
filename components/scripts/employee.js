@@ -89,7 +89,6 @@ function filterCols()
     var rows = document.getElementById("employeeTable").rows;
     var selectedCols = document.getElementById("filter");
     
-    
     for(var i=0;i<rows.length;i++)
     {
         var cols = rows[i].cells;
@@ -102,6 +101,33 @@ function filterCols()
             else
             {
                 cols[j+1].style.display="";
+            }
+        }
+    
+    }
+
+}
+
+
+
+function hideCols()
+{
+    var rows = document.getElementById("employeeTable").rows;
+    var selectedCols = document.getElementById("filter");
+    
+    
+    for(var i=0;i<rows.length;i++)
+    {
+        var cols = rows[i].cells;
+
+        for(var j=0;j<selectedCols.length;j++)
+        {
+            if(selectedCols[j].selected){
+                cols[j].style.display="none";
+            }
+            else
+            {
+                cols[j].style.display="";
             }
         }
     

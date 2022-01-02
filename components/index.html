@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>PRINT</title>
+	<style>
+		.print-container{
+			visibility: hidden;
+			border: 2px solid black;
+			padding: 2%;
+		}
+		@media print{
+			body{
+				visibility: hidden;
+				font-size: 30pt;
+			}
+			.print-container, .print-container * {
+				visibility: visible;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<h1>Hello from Mars!!</h1>
+	</div>
+	<button onclick="window.print();">Print</button>
+	<div class="print-container">
+		<h2 style="text-align: center; font-size: 60pt;">Payslip</h2>
+		<br/><br/>
+		<table>
+			<thead>
+				<th>
+					<img src="static/icon.png" >
+				</th>
+				<th>
+					<h2>
+						PAYROLL MANAGEMENT SYSTEM
+					</h2>
+					<h4>
+						Jorhat Engineering College, Jorhat
+					</h4>
+				</th>
+			</thead>
+		</table>
+
+		<p>Salary ID: </p>
+		<p>Employee ID: </p>
+		<p>Name: </p>
+		<p>From: </p>
+		<p>To: </p>
+		<p>BASIC: </p>
+		<p>DRA: </p>
+		<p>HRA: </p>
+		<p>PF: </p>
+		<p>Deductions: </p>
+		<p>Gross Salary: </p>
+		<p>Pay date: </p>
+	</div>
+</body>
+</html>

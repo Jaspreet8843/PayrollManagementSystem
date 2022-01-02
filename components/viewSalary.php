@@ -8,6 +8,22 @@ require('header.php');
 $query = "SELECT * FROM employee INNER JOIN salary ON employee.eId=salary.eId ORDER BY sDate DESC";
 $salary = mysqli_query($db, $query);
 ?>
+<style>
+    .print-container{
+        visibility: hidden;
+        border: 2px solid black;
+        padding: 2%;
+    }
+    @media print{
+        body{
+            visibility: hidden;
+            font-size: 30pt;
+        }
+        .print-container, .print-container * {
+            visibility: visible;
+        }
+    }
+</style>
 
 <div class="p-sm-5">
     <div class="m-md-3 mt-5 p-5 bg-white shadow rounded">
@@ -67,6 +83,7 @@ $salary = mysqli_query($db, $query);
 
                 <thead class="thead-dark align-middle">
                     <tr>
+                        <th></th>
                         <th>Salary ID</th>
                         <th>Employee ID</th>
                         <th>Name</th>
@@ -77,10 +94,11 @@ $salary = mysqli_query($db, $query);
                         <th>HRA</th>
                         <th>PF</th>
                         <th>Deductions</th>
-                        <th>Gross Salary</th>
+                        <th>Net Salary</th>
                         <th>Remarks</th>
                         <th>Salary Date</th>
-                        <th>Inserted By</th>
+                        <th>Inserted By</th> 
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -88,6 +106,9 @@ $salary = mysqli_query($db, $query);
                     while ($row = mysqli_fetch_assoc($salary)) {
                     ?>
                         <tr class="align-middle">
+                            <td>
+                                <button class="btn btn-secondary" onclick="printDiv('print-container<?php echo $row['sId']?>');"><i class="fas fa-print"></i></button>
+                            </td>
                             <td>
                                 <?php echo $row['sId'] ?>
                             </td>
@@ -129,6 +150,104 @@ $salary = mysqli_query($db, $query);
                             </td>
                             <td>
                                 <?php echo $row['insertedBy'] ?>
+                            </td>
+                    
+                            <td>
+
+                            <div id="print-container<?php echo $row['sId']?>" class="print-container text-center" style="display:none;">
+                            <div class="border p-5">
+
+                                <h2 style="text-align: center; font-size: 60pt;">Payslip</h2>
+                                <br/><br/>
+                                <div class="row">
+                                    <div class="col-8">
+                                        
+                                        </div>
+                    
+                                        <div class="col">
+                                            <h2>
+                                
+                                            PAYROLL MANAGEMENT SYSTEM
+                                        </h2>
+                                        <h4>
+                                            Jorhat Engineering College, Jorhat
+                                        </h4>
+                                    </div>
+                                    <div class="col-1">
+                                        <img src="static/icon.png" style="width:100%" >
+                                    </div>
+                                </div>
+                                <table class="table table-borderless" style="font-size:30pt">
+                                    <tr>
+                                        <td>Name</td>
+                                        <td colspan="3"><?php echo $row['eName']?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Salary ID</td>
+                                        <td><?php echo $row['sId']?></td>
+                                        <td>Employee ID</td>
+                                        <td><?php echo $row['eId']?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>From</td>
+                                        <td><?php echo $row['dateFrom']?></td>
+                                        <td>Till</td>
+                                        <td><?php echo $row['dateTill']?></td>
+                                    </tr>
+                                </table>
+                                <table class="table table-bordered text-center mt-5" style="font-size:30pt;">
+                                    <thead>
+                                        <th colspan="2">
+                                            Earnings
+                                        </th>
+                                        <th colspan="2">
+                                            Deductions
+                                        </th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Basic Pay</td>
+                                            <td><?php echo $row['basic']?></td>
+                                            <td>Leaves</td>
+                                            <td><?php echo $row['deductions']?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>DA</td>
+                                            <td><?php echo $row['DA']?></td>
+                                            <td>PF</td>
+                                            <td><?php echo $row['PF']?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>HRA</td>
+                                            <td><?php echo $row['HRA']?></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <b>
+                                                <th>
+                                                    TOTAL EARNINGS:
+                                                </th>
+                                                <th>
+                                                    <?php echo $row['basic']+$row['DA']+$row['HRA']?>
+                                                </th>
+                                                <th>
+                                                    TOTAL DEDUCTIONS:
+                                                </th>
+                                                <th>
+                                                    <?php echo $row['PF']+$row['deductions']?>
+                                                </th>
+                                            </b>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="2"></th>
+                                            <th>NET PAY</th>
+                                            <th><?php echo $row['basic']+ $row['DA'] + $row['HRA'] - $row['PF'] - $row['deductions']?></th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            </div>
                             </td>
                         </tr>
                     <?php
