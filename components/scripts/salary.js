@@ -132,7 +132,6 @@ function filterCols()
 
 function printDiv(divName) {
 
-    document.getElementById('darken').style.display="inline";
     var printContents = document.getElementById(divName).innerHTML;
     var originalContents = document.body.innerHTML;
 
@@ -140,5 +139,4 @@ function printDiv(divName) {
 
     window.print();
     document.body.innerHTML = originalContents;
-    document.getElementById('darken').style.display="none";
 }
