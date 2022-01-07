@@ -110,6 +110,7 @@ function search()
             rows[i].style.display="none";
         }
     }
+
     mergeCells();
 }
 

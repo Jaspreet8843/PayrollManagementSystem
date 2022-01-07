@@ -1,9 +1,76 @@
+var start = 0;
+var step = 10;
+
+function noOfRows()
+{
+    var rows = document.getElementById("logstable").rows;
+    var end = rows.length;
+
+    if(start<0)
+    {
+        start+=step;
+    }
+    else if(start>end)
+    {
+        start-=step
+    }
+    
+    else
+    {
+        if(start==0)
+        {
+            document.getElementById("prevbtn").disabled = true;
+        }
+        else
+        {
+            document.getElementById("prevbtn").disabled = false;
+        }
+        if(start+step>end)
+        {
+            document.getElementById("nextbtn").disabled = true;
+        }
+        else
+        {
+            document.getElementById("nextbtn").disabled = false;
+        }
+        var from = start+1;
+        var to = start+step;
+        var msg = "Showing "+from+" to "+ (to>end?end:to) +" of "+end+" entries.";
+        document.getElementById("countmsg").innerHTML = msg;
+        
+        for(var i=1;i<rows.length;i++)
+        {
+            if(i>=from && i<=to)
+            {
+                rows[i].style.display="";
+            }
+            else
+            {
+                rows[i].style.display="none";
+            }
+        }
+    }
+
+}
+
+function prevRows()
+{
+    start-=step;
+    noOfRows();
+}
+
+function nextRows()
+{
+    start+=step;
+    noOfRows();
+}
+
 function hideCols()
 {
     var rows = document.getElementById("logstable").rows;
     var selectedCols = document.getElementById("filter");
     
-    
+
     for(var i=0;i<rows.length;i++)
     {
         var cols = rows[i].cells;
@@ -21,6 +88,8 @@ function hideCols()
     
     }
 
+    
+
 }
 
 
@@ -35,6 +104,8 @@ function search()
     {
         var cells = rows[i].getElementsByTagName("td");
         var found = false;
+
+        var searching = false;
 
         if(category==-1)
         {
@@ -63,7 +134,14 @@ function search()
         else
         {
             rows[i].style.display="none";
+            searching = true;
         }
+
+    }
+
+    if(!searching)
+    {
+        noOfRows();
     }
 }
 

@@ -84,6 +84,7 @@ $leaves = mysqli_query($db, $query);
                 </tbody>
             </table>
         </div>
+
     </div>
 
 </div>

@@ -9,6 +9,8 @@ $query = "SELECT * FROM logs ORDER BY id DESC";
 $logs = mysqli_query($db, $query);
 ?>
 
+
+
 <div class="p-sm-5">
     <div class="m-md-3 mt-5 p-5 bg-white shadow rounded">
         <div class="row">
@@ -91,13 +93,26 @@ $logs = mysqli_query($db, $query);
                 </tbody>
             </table>
         </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-8" id="countmsg">
+            </div>
+            <div class="col-md-4">
+                <button onclick="nextRows()" id="nextbtn" class="btn btn-outline-dark float-md-end">Next <i class="fas fa-arrow-circle-right"></i></button>
+                <button onclick="prevRows()" id="prevbtn" class="btn btn-outline-dark float-md-end"><i class="fas fa-arrow-circle-left"></i> Previous</button>
+            </div>
+        </div>
     </div>
 
 </div>
 
 <script src="scripts/logs.js" type="text/javascript"></script>
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js" integrity="sha512-FHZVRMUW9FsXobt+ONiix6Z0tIkxvQfxtCSirkKc5Sb4TKHmqq1dZa8DphF0XqKb3ldLu/wgMa8mT6uXiLlRlw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script>
+    noOfRows();
+</script>
 
 <?php require('footer.php');?>
