@@ -20,7 +20,7 @@ function noOfRows()
     {
         start+=step;
     }
-    else if(start>end)
+    else if(start>=end)
     {
         start-=step
     }
@@ -35,7 +35,7 @@ function noOfRows()
         {
             document.getElementById("prevbtn").disabled = false;
         }
-        if(start+step>end)
+        if(start+step>=end)
         {
             document.getElementById("nextbtn").disabled = true;
         }
