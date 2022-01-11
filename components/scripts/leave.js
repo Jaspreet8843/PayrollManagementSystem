@@ -38,7 +38,8 @@ function noOfRows()
         }
         var from = start+1;
         var to = start+step;
-        var msg = "Showing "+from+" to "+ (to>end?end:to) +" of "+end+" entries.";
+        var total = end-1;
+        var msg = "Showing "+from+" to "+ (to>total?total:to) +" of "+total+" entries.";
         document.getElementById("countmsg").innerHTML = msg;
         
         for(var i=1;i<rows.length;i++)
@@ -131,7 +132,7 @@ function search()
     }
     if(!searching)
     {
-        noOfRows();
+        //noOfRows();
     }
 }
 

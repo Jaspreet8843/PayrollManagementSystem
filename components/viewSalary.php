@@ -113,27 +113,25 @@ $salary = mysqli_query($db, $query);
                                 <div id="print-container<?php echo $row['sId'] ?>" class="print-container text-center" style="display:none;">
                                     <div class="border p-5">
 
-                                        <h2 style="text-align: center; font-size: 60pt;">Payslip</h2>
+                                        <h2 style="text-align: center; font-size: 22pt;"><b>Payslip</b></h2>
                                         <br /><br />
                                         <div class="row">
-                                            <div class="col-8">
-
+                                            <div class="col-4">
                                             </div>
-
                                             <div class="col">
-                                                <h2>
-
-                                                    PAYROLL MANAGEMENT SYSTEM
-                                                </h2>
-                                                <h4>
-                                                    Jorhat Engineering College, Jorhat
-                                                </h4>
+                                                <h6>
+                                                   <b> PAYROLL MANAGEMENT SYSTEM</b>
+                                                </h6>
+                                    
+                                                <h6>
+                                                    Jorhat Engineering College,<br> Garmur, Jorhat, <br>Assam 785007
+                                                </h6>
                                             </div>
-                                            <div class="col-1">
-                                                <img src="static/icon.png" style="width:100%">
+                                            <div class="col-2">
+                                                <img src="static/icon.png" style="width:80%">
                                             </div>
                                         </div>
-                                        <table class="table table-borderless" style="font-size:30pt">
+                                        <table class="table table-borderless mt-5" style="font-size:11pt">
                                             <tr>
                                                 <td>Name</td>
                                                 <td colspan="3"><?php echo $row['eName'] ?></td>
@@ -151,7 +149,7 @@ $salary = mysqli_query($db, $query);
                                                 <td><?php echo $row['dateTill'] ?></td>
                                             </tr>
                                         </table>
-                                        <table class="table table-bordered text-center mt-5" style="font-size:30pt;">
+                                        <table class="table table-bordered text-center mt-5" style="font-size:11pt;">
                                             <thead>
                                                 <th colspan="2">
                                                     Earnings

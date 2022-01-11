@@ -28,6 +28,7 @@ $employees = mysqli_query($db, $query);
             </div>
             <div class="col-md-2 p-2 p-md-1">
                 <select class="form-select" id="category" onchange="search()">
+                    <option value=-1 selected>Search All</option>
                     <option value=0>Sl No.</option>
                     <option value=1>eID</option>
                     <option value=2>eName</option>
