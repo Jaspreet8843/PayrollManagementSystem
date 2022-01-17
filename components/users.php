@@ -28,7 +28,7 @@ $employees = mysqli_query($db, $query);
 ?>
 
 <div class="p-sm-5">
-    <div class="m-md-3 mt-5 p-5 bg-white shadow rounded">
+    <div class="m-md-3 mt-md-1 p-5 bg-white shadow rounded">
         <div class="row">
             <div class="col-md-2">
                 <h2>Users</h2>

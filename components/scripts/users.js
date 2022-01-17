@@ -1,3 +1,6 @@
+document.getElementById("homelink").classList.remove("active");
+document.getElementById("userslink").classList.add("active");
+
 var start = 0;
 var step = 10;
 
@@ -109,9 +112,9 @@ function search(){
             searching = true;
         }
     }
-    if(!searching)
+    if(input === '')
     {
-        //noOfRows();
+        noOfRows();
     }
 }
 

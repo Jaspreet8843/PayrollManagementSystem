@@ -157,9 +157,9 @@ function search(){
             searching = true;
         }
     }
-    if(!searching)
+    if(input === '')
     {
-        //noOfRows();
+        noOfRows();
     }
 }
 

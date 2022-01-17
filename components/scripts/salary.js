@@ -1,3 +1,4 @@
+
 document.getElementById("homelink").classList.remove("active");
 document.getElementById("salarylink").classList.add("active");
 
@@ -76,35 +77,35 @@ function nextRows()
     noOfRows();
 }
 
+if (typeof idArray != "undefined") {
 
-
-for(var i=0;i<idArray.length;i++)
-{
-    emp.innerHTML += '<option value="'+ idArray[i] + '">' + nameArray[i] + '</option>';
-}
-
-for(var i=4;i>-3;i--)
-{
-    date = new Date(today.getFullYear(), today.getMonth() - i, 1);
-    m = monthNames[date.getMonth()];
-    y = date.getFullYear();
-    var lastDayOfMonth = new Date(y, date.getMonth()+1, 0).getDate();
-    
-    if(today.getMonth() === date.getMonth())
+    for(var i=0;i<idArray.length;i++)
     {
-        month.innerHTML += '<option selected value="' + m + y + '">' + m + " " + y + '</option>';
-        sdate.value = dateToYMD(date);
-        var lastDate = new Date(today.getFullYear(), today.getMonth(), lastDayOfMonth);
-        edate.value = dateToYMD(lastDate);
-
+        emp.innerHTML += '<option value="'+ idArray[i] + '">' + nameArray[i] + '</option>';
     }
-    else
+
+    for(var i=4;i>-3;i--)
     {
-        month.innerHTML += '<option value="' + m + y + '">' + m + " " + y + '</option>';
+        date = new Date(today.getFullYear(), today.getMonth() - i, 1);
+        m = monthNames[date.getMonth()];
+        y = date.getFullYear();
+        var lastDayOfMonth = new Date(y, date.getMonth()+1, 0).getDate();
+        
+        if(today.getMonth() === date.getMonth())
+        {
+            month.innerHTML += '<option selected value="' + m + y + '">' + m + " " + y + '</option>';
+            sdate.value = dateToYMD(date);
+            var lastDate = new Date(today.getFullYear(), today.getMonth(), lastDayOfMonth);
+            edate.value = dateToYMD(lastDate);
+
+        }
+        else
+        {
+            month.innerHTML += '<option value="' + m + y + '">' + m + " " + y + '</option>';
+        }
     }
+
 }
-
-
 
 function dateToYMD(date) {
     var d = date.getDate();
@@ -130,8 +131,7 @@ function setDates() {
     edate.value = dateToYMD(end);
 }
 
-function search()
-{
+function search(){
     var input = document.getElementById("search").value.toUpperCase();
     var rows = document.getElementById("salaryTable").getElementsByTagName("tr");
     var category = document.getElementById("category").value;
@@ -145,7 +145,7 @@ function search()
 
         if(category==-1)
         {
-            for(var j=0;j<cells.length;j++)
+            for(var j=1;j<cells.length;j++)
             {
                 if(cells[j].innerHTML.toUpperCase().includes(input))
                 {
@@ -173,9 +173,9 @@ function search()
             searching = true;
         }
     }
-    if(!searching)
+    if(input === '')
     {
-        //noOfRows();
+        noOfRows();
     }
 }
 
@@ -207,9 +207,10 @@ function filterCols()
 
 
 function printDiv(divName) {
-
+    
     var printContents = document.getElementById(divName).innerHTML;
     var originalContents = document.body.innerHTML;
+
 
     document.body.innerHTML = printContents;
 

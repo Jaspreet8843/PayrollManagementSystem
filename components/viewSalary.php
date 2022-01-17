@@ -7,6 +7,7 @@ require('header.php');
 
 $query = "SELECT * FROM employee INNER JOIN salary ON employee.eId=salary.eId ORDER BY sDate DESC";
 $salary = mysqli_query($db, $query);
+$printSalary = mysqli_query($db, $query);
 ?>
 <style>
     .print-container {
@@ -27,6 +28,9 @@ $salary = mysqli_query($db, $query);
         }
     }
 </style>
+
+
+
 
 <div class="p-sm-5">
     <div class="m-md-3 mt-5 p-5 bg-white shadow rounded">
@@ -55,20 +59,20 @@ $salary = mysqli_query($db, $query);
             <div class="col-md-2 p-2 p-md-1">
                 <select class="form-select" id="category" onchange="search()">
                     <option value=-1 selected>Search All</option>
-                    <option value=0>Salary ID</option>
-                    <option value=1>Employee ID</option>
-                    <option value=2>Name</option>
-                    <option value=3>Date From</option>
-                    <option value=4>Date Till</option>
-                    <option value=5>Basic</option>
-                    <option value=6>DA</option>
-                    <option value=7>HRA</option>
-                    <option value=8>PF</option>
-                    <option value=9>Deductions</option>
-                    <option value=10>Gross Salary</option>
-                    <option value=11>Remarks</option>
-                    <option value=12>Salary Date</option>
-                    <option value=13>Inserted By</option>
+                    <option value=1>Salary ID</option>
+                    <option value=2>Employee ID</option>
+                    <option value=3>Name</option>
+                    <option value=4>Date From</option>
+                    <option value=5>Date Till</option>
+                    <option value=6>Basic</option>
+                    <option value=7>DA</option>
+                    <option value=8>HRA</option>
+                    <option value=9>PF</option>
+                    <option value=10>Deductions</option>
+                    <option value=11>Gross Salary</option>
+                    <option value=12>Remarks</option>
+                    <option value=13>Salary Date</option>
+                    <option value=14>Inserted By</option>
                 </select>
             </div>
             <div class="col-md-4 p-2 p-md-1">
@@ -107,101 +111,11 @@ $salary = mysqli_query($db, $query);
                     <?php
                     while ($row = mysqli_fetch_assoc($salary)) {
                     ?>
+
+
                         <tr class="align-middle">
                             <td>
                                 <button class="btn btn-secondary" onclick="printDiv('print-container<?php echo $row['sId'] ?>');"><i class="fas fa-print"></i></button>
-                                <div id="print-container<?php echo $row['sId'] ?>" class="print-container text-center" style="display:none;">
-                                    <div class="border p-5">
-
-                                        <h2 style="text-align: center; font-size: 22pt;"><b>Payslip</b></h2>
-                                        <br /><br />
-                                        <div class="row">
-                                            <div class="col-4">
-                                            </div>
-                                            <div class="col">
-                                                <h6>
-                                                   <b> PAYROLL MANAGEMENT SYSTEM</b>
-                                                </h6>
-                                    
-                                                <h6>
-                                                    Jorhat Engineering College,<br> Garmur, Jorhat, <br>Assam 785007
-                                                </h6>
-                                            </div>
-                                            <div class="col-2">
-                                                <img src="static/icon.png" style="width:80%">
-                                            </div>
-                                        </div>
-                                        <table class="table table-borderless mt-5" style="font-size:11pt">
-                                            <tr>
-                                                <td>Name</td>
-                                                <td colspan="3"><?php echo $row['eName'] ?></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Salary ID</td>
-                                                <td><?php echo $row['sId'] ?></td>
-                                                <td>Employee ID</td>
-                                                <td><?php echo $row['eId'] ?></td>
-                                            </tr>
-                                            <tr>
-                                                <td>From</td>
-                                                <td><?php echo $row['dateFrom'] ?></td>
-                                                <td>Till</td>
-                                                <td><?php echo $row['dateTill'] ?></td>
-                                            </tr>
-                                        </table>
-                                        <table class="table table-bordered text-center mt-5" style="font-size:11pt;">
-                                            <thead>
-                                                <th colspan="2">
-                                                    Earnings
-                                                </th>
-                                                <th colspan="2">
-                                                    Deductions
-                                                </th>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Basic Pay</td>
-                                                    <td><?php echo $row['basic'] ?></td>
-                                                    <td>Leaves</td>
-                                                    <td><?php echo $row['deductions'] ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>DA</td>
-                                                    <td><?php echo $row['DA'] ?></td>
-                                                    <td>PF</td>
-                                                    <td><?php echo $row['PF'] ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>HRA</td>
-                                                    <td><?php echo $row['HRA'] ?></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <b>
-                                                        <th>
-                                                            TOTAL EARNINGS:
-                                                        </th>
-                                                        <th>
-                                                            <?php echo $row['basic'] + $row['DA'] + $row['HRA'] ?>
-                                                        </th>
-                                                        <th>
-                                                            TOTAL DEDUCTIONS:
-                                                        </th>
-                                                        <th>
-                                                            <?php echo $row['PF'] + $row['deductions'] ?>
-                                                        </th>
-                                                    </b>
-                                                </tr>
-                                                <tr>
-                                                    <th colspan="2"></th>
-                                                    <th>NET PAY</th>
-                                                    <th><?php echo $row['basic'] + $row['DA'] + $row['HRA'] - $row['PF'] - $row['deductions'] ?></th>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
                             </td>
                             <td>
                                 <?php echo $row['sId'] ?>
@@ -266,8 +180,109 @@ $salary = mysqli_query($db, $query);
 
 </div>
 
-<script src="scripts/salary.js" type="text/javascript"></script>
 
+<?php
+while ($row = mysqli_fetch_assoc($printSalary)) {
+?>
+    <div id="print-container<?php echo $row['sId'] ?>" class="print-container text-center" style="display:inline;">
+        <div class="border p-5">
+
+            <h2 style="text-align: center; font-size: 22pt;"><b>Payslip</b></h2>
+            <br /><br />
+            <div class="row">
+                <div class="col-4">
+                </div>
+                <div class="col">
+                    <h6>
+                        <b> PAYROLL MANAGEMENT SYSTEM</b>
+                    </h6>
+
+                    <h6>
+                        Jorhat Engineering College,<br> Garmur, Jorhat, <br>Assam 785007
+                    </h6>
+                </div>
+                <div class="col-2">
+                    <img src="static/icon.png" style="width:80%">
+                </div>
+            </div>
+            <table class="table table-borderless mt-5" style="font-size:11pt">
+                <tr>
+                    <td>Name</td>
+                    <td colspan="3"><?php echo $row['eName'] ?></td>
+                </tr>
+                <tr>
+                    <td>Salary ID</td>
+                    <td><?php echo $row['sId'] ?></td>
+                    <td>Employee ID</td>
+                    <td><?php echo $row['eId'] ?></td>
+                </tr>
+                <tr>
+                    <td>From</td>
+                    <td><?php echo $row['dateFrom'] ?></td>
+                    <td>Till</td>
+                    <td><?php echo $row['dateTill'] ?></td>
+                </tr>
+            </table>
+            <table class="table table-bordered text-center mt-5" style="font-size:11pt;">
+                <thead>
+                    <th colspan="2">
+                        Earnings
+                    </th>
+                    <th colspan="2">
+                        Deductions
+                    </th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Basic Pay</td>
+                        <td><?php echo $row['basic'] ?></td>
+                        <td>Leaves</td>
+                        <td><?php echo $row['deductions'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>DA</td>
+                        <td><?php echo $row['DA'] ?></td>
+                        <td>PF</td>
+                        <td><?php echo $row['PF'] ?></td>
+                    </tr>
+                    <tr>
+                        <td>HRA</td>
+                        <td><?php echo $row['HRA'] ?></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <b>
+                            <th>
+                                TOTAL EARNINGS:
+                            </th>
+                            <th>
+                                <?php echo $row['basic'] + $row['DA'] + $row['HRA'] ?>
+                            </th>
+                            <th>
+                                TOTAL DEDUCTIONS:
+                            </th>
+                            <th>
+                                <?php echo $row['PF'] + $row['deductions'] ?>
+                            </th>
+                        </b>
+                    </tr>
+                    <tr>
+                        <th colspan="2"></th>
+                        <th>NET PAY</th>
+                        <th><?php echo $row['basic'] + $row['DA'] + $row['HRA'] - $row['PF'] - $row['deductions'] ?></th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+<?php } ?>
+
+
+
+<script src="scripts/salary.js" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js" integrity="sha512-FHZVRMUW9FsXobt+ONiix6Z0tIkxvQfxtCSirkKc5Sb4TKHmqq1dZa8DphF0XqKb3ldLu/wgMa8mT6uXiLlRlw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>

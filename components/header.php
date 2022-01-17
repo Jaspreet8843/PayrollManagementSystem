@@ -74,7 +74,7 @@ require('inc/config.php');
             </ul>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link" href="/components/logs.php" role="button" >
+            <a class="nav-link" href="/components/logs.php" role="button" id="activitylink">
               Activity
             </a>
           </li>
@@ -82,7 +82,7 @@ require('inc/config.php');
           <?php if( isset($_SESSION['type']) &&  $_SESSION['type']== 'admin')
           { ?>
           <li class="nav-item dropdown">
-            <a class="nav-link" href="/components/users.php" role="button" >
+            <a class="nav-link" href="/components/users.php" role="button" id="userslink">
               Users
             </a>
           </li>
